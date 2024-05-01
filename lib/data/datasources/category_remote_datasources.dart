@@ -11,7 +11,7 @@ class CategoryRemoteDataSources {
     if (response.statusCode == 200) {
       return Right(CategoryResponseModel.fromJson(response.body));
     } else {
-      return const Left('Terjadi Kesalahan John');
+      return const Left('Terjadi Kesalahan John Walker');
     }
   }
 }
