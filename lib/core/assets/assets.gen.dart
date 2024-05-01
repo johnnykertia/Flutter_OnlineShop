@@ -14,17 +14,30 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/bag.svg
+  SvgGenImage get bag => const SvgGenImage('assets/icons/bag.svg');
+
   /// File path: assets/icons/cart.svg
   SvgGenImage get cart => const SvgGenImage('assets/icons/cart.svg');
 
   /// File path: assets/icons/clock.svg
   SvgGenImage get clock => const SvgGenImage('assets/icons/clock.svg');
 
+  /// File path: assets/icons/copy.svg
+  SvgGenImage get copy => const SvgGenImage('assets/icons/copy.svg');
+
+  /// File path: assets/icons/creditcard.svg
+  SvgGenImage get creditcard =>
+      const SvgGenImage('assets/icons/creditcard.svg');
+
   /// File path: assets/icons/email.svg
   SvgGenImage get email => const SvgGenImage('assets/icons/email.svg');
 
   /// File path: assets/icons/home.svg
   SvgGenImage get home => const SvgGenImage('assets/icons/home.svg');
+
+  /// File path: assets/icons/location.svg
+  SvgGenImage get location => const SvgGenImage('assets/icons/location.svg');
 
   /// File path: assets/icons/notification.svg
   SvgGenImage get notification =>
@@ -39,6 +52,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/person.svg
   SvgGenImage get person => const SvgGenImage('assets/icons/person.svg');
 
+  /// File path: assets/icons/routing.svg
+  SvgGenImage get routing => const SvgGenImage('assets/icons/routing.svg');
+
   /// File path: assets/icons/search.svg
   SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
 
@@ -46,18 +62,27 @@ class $AssetsIconsGen {
   SvgGenImage get shieldDone =>
       const SvgGenImage('assets/icons/shield-done.svg');
 
+  /// File path: assets/icons/user.svg
+  SvgGenImage get user => const SvgGenImage('assets/icons/user.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
+        bag,
         cart,
         clock,
+        copy,
+        creditcard,
         email,
         home,
+        location,
         notification,
         order,
         password,
         person,
+        routing,
         search,
-        shieldDone
+        shieldDone,
+        user
       ];
 }
 
