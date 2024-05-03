@@ -15,10 +15,12 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     this._categoryRemoteDataSources,
   ) : super(const _Initial()) {
     on<_GetCategories>((event, emit) async {
+      emit(const CategoryState.loading());
+
       final response = await _categoryRemoteDataSources.getCategories();
-      response.fold((l) => emit(CategoryState.error('Internal Server Error')),
+      response.fold(
+          (l) => emit(const CategoryState.error('Internal Server Error')),
           (r) => emit(CategoryState.loaded(r.data!)));
-      ;
     });
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_shop/data/datasources/category_remote_datasources.dart';
+import 'package:flutter_online_shop/data/datasources/product_remote_datasources.dart';
+import 'package:flutter_online_shop/presentation/home/bloc/all_product/all_product_bloc.dart';
 // import 'package:flutter_online_shop/presentation/home/pages/dashboard_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,8 +21,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appRouter = AppRouter();
     final router = appRouter.router;
-    return BlocProvider(
-      create: (context) => CategoryBloc(CategoryRemoteDataSources()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CategoryBloc(CategoryRemoteDataSources()),
+        ),
+        BlocProvider(
+          create: (context) => AllProductBloc(ProductRemoteDataSources()),
+        ),
+      ],
       child: MaterialApp.router(
         title: 'Flutter Demo',
         theme: ThemeData(
