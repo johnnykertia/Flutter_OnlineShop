@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_shop/data/datasources/category_remote_datasources.dart';
 import 'package:flutter_online_shop/data/datasources/product_remote_datasources.dart';
 import 'package:flutter_online_shop/presentation/home/bloc/all_product/all_product_bloc.dart';
+import 'package:flutter_online_shop/presentation/home/bloc/best_seller_product/best_seller_product_bloc.dart';
+import 'package:flutter_online_shop/presentation/home/bloc/special_offer_product/special_offer_product_bloc.dart';
 // import 'package:flutter_online_shop/presentation/home/pages/dashboard_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,6 +30,14 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AllProductBloc(ProductRemoteDataSources()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              BestSellerProductBloc(ProductRemoteDataSources()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              SpecialOfferProductBloc(ProductRemoteDataSources()),
         ),
       ],
       child: MaterialApp.router(
