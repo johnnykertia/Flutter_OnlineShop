@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../presentation/home/pages/dashboard_page.dart';
 import '../../presentation/intro/splash_page.dart';
+import '../../presentation/orders/pages/cart_page.dart';
 
 // import '../../../ui/address/models/address_model.dart';
 // import '../../../ui/address/pages/add_address_page.dart';
@@ -62,6 +63,13 @@ class AppRouter {
             currentTab: tab,
           );
         },
+        routes: [
+          GoRoute(
+            name: RouteConstants.cart,
+            path: RouteConstants.cartPath,
+            builder: (context, state) => const CartPage(),
+          ),
+        ]
       ),
       //   routes: [
       //     GoRoute(

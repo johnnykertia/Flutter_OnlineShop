@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_shop/core/constants/variables.dart';
 import 'package:flutter_online_shop/data/models/responses/product_response_model.dart';
 import 'package:flutter_online_shop/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/components/spaces.dart';
+// import '../../../core/constants/variables.dart';
 import '../../../core/core.dart';
 import '../../../core/router/app_router.dart';
 import '../models/product_model.dart';
@@ -44,7 +46,9 @@ class ProductCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
                   child: Image.network(
-                    data.image!,
+                    data.image!.contains('http')
+                        ? data.image!
+                        : '${Variables.baseUrlImage}${data.image}',
                     width: 170.0,
                     height: 112.0,
                     fit: BoxFit.cover,

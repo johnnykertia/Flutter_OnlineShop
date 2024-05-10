@@ -64,6 +64,10 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Cwb Store'),
         actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Assets.icons.notification.svg(height: 24.0),
+          ),
           BlocBuilder<CheckoutBloc, CheckoutState>(
             builder: (context, state) {
               return state.maybeWhen(
@@ -118,12 +122,9 @@ class _HomePageState extends State<HomePage> {
               // );
             },
           ),
-          const SpaceWidth(10.0),
-          IconButton(
-            onPressed: () {},
-            icon: Assets.icons.notification.svg(height: 24.0),
-          ),
-          const SpaceWidth(10.0),
+          const SizedBox(
+            width: 16.0,
+          )
         ],
       ),
       body: ListView(
@@ -213,7 +214,7 @@ class _HomePageState extends State<HomePage> {
           //   onSeeAllTap: () {},
           //   items: topRatedProducts,
           // ),
-          const SpaceHeight(50.0),
+          const SpaceHeight(30.0),
           BlocBuilder<SpecialOfferProductBloc, SpecialOfferProductState>(
             builder: (context, state) {
               return state.maybeWhen(
@@ -222,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                       title: 'Special Offers',
                       onSeeAllTap: () {},
                       items: products.length > 2
-                          ? products.sublist(0, 2)
+                          ? products.sublist(0, 4)
                           : products);
                 },
                 orElse: () => const SizedBox.shrink(),
