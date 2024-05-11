@@ -101,34 +101,70 @@ class CartPage extends StatelessWidget {
           const SpaceHeight(50.0),
           Row(
             children: [
-              const Text(
-                'Total',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CheckoutBloc, CheckoutState>(
+                builder: (context, state) {
+                  return const Text(
+                    'Total',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
               const Spacer(),
-              Text(
-                350000.currencyFormatRp,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CheckoutBloc, CheckoutState>(
+                builder: (context, state) {
+                  final total = state.maybeWhen(
+                      orElse: () => 0,
+                      loaded: (checkout) {
+                        return checkout.fold<int>(
+                            0,
+                            (previousValue, element) =>
+                                previousValue +
+                                (element.quantity * element.product.price!));
+                      });
+                  return Text(
+                    total.currencyFormatRp,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
             ],
           ),
           const SpaceHeight(40.0),
-          Button.filled(
-            onPressed: () {
-              context.goNamed(
-                RouteConstants.address,
-                pathParameters: PathParameters(
-                  rootTab: RootTab.order,
-                ).toMap(),
-              );
+          BlocBuilder<CheckoutBloc, CheckoutState>(
+            builder: (context, state) {
+              final totalQty = state.maybeWhen(
+                  orElse: () => 0,
+                  loaded: (checkout) {
+                    return checkout.fold<int>(
+                        0,
+                        (previousValue, element) =>
+                            previousValue + element.quantity);
+                  });
+              return Button.filled(
+                  onPressed: () {
+                    context.goNamed(RouteConstants.address,
+                        pathParameters:
+                            PathParameters(rootTab: RootTab.order).toMap());
+                  },
+                  label: 'Checkout {$totalQty}');
+              // return Button.filled(
+              //   onPressed: () {
+              //     context.goNamed(
+              //       RouteConstants.address,
+              //       pathParameters: PathParameters(
+              //         rootTab: RootTab.order,
+              //       ).toMap(),
+              //     );
+              //   },
+              //   label: 'Checkout (10)',
+              // );
             },
-            label: 'Checkout (10)',
           ),
         ],
       ),

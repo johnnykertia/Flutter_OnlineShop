@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_online_shop/core/constants/variables.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../../core/components/spaces.dart';
 import '../../../core/core.dart';
+import '../../home/bloc/checkout/checkout_bloc.dart';
 import '../../home/models/product_quantity.dart';
 import '../models/cart_model.dart';
 
@@ -86,9 +88,9 @@ class CartTile extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                     child: InkWell(
                       onTap: () {
-                        if (data.quantity > 1) {
-                          data.quantity--;
-                        }
+                        context
+                            .read<CheckoutBloc>()
+                            .add(CheckoutEvent.removeItem(data.product));
                       },
                       child: const ColoredBox(
                         color: AppColors.primary,
@@ -112,7 +114,9 @@ class CartTile extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                     child: InkWell(
                       onTap: () {
-                        data.quantity++;
+                        context
+                            .read<CheckoutBloc>()
+                            .add(CheckoutEvent.addItem(data.product));
                       },
                       child: const ColoredBox(
                         color: AppColors.primary,
