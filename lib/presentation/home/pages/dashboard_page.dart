@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_online_shop/presentation/home/pages/logout_page.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/constants/colors.dart';
@@ -32,9 +33,7 @@ class _DashboardPageState extends State<DashboardPage> {
     const Center(
       child: Text('This Page 3'),
     ),
-    const Center(
-      child: Text('This Page 4 '),
-    ),
+    const LogoutPage()
   ];
 
   void _onItemTapped(int index) {

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_shop/data/datasources/auth_local_datasource.dart';
+import 'package:flutter_online_shop/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/components/buttons.dart';
@@ -14,7 +17,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final phoneController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -25,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    phoneController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -77,31 +78,51 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           const SpaceHeight(50.0),
-          Button.filled(
-            onPressed: () {
-              context.goNamed(
-                RouteConstants.root,
-                pathParameters: PathParameters().toMap(),
+          BlocConsumer<LoginBloc, LoginState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                orElse: () {},
+                loaded: (data) async {
+                  AuthLocalDatasource().saveAuthData(data);
+                  context.goNamed(
+                    RouteConstants.root,
+                    pathParameters: PathParameters().toMap(),
+                  );
+                },
+                error: (message) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: AppColors.red,
+                      content: Text(message),
+                    ),
+                  );
+                },
               );
             },
-            label: 'Login',
+            builder: (context, state) {
+              return state.maybeWhen(
+                orElse: () {
+                  return Button.filled(
+                    onPressed: () {
+                      context.read<LoginBloc>().add(
+                            LoginEvent.login(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ),
+                          );
+                    },
+                    label: 'Login',
+                  );
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              );
+            },
           ),
           const SpaceHeight(50.0),
-          // const Row(
-          //   children: [
-          //     Flexible(child: Divider()),
-          //     SizedBox(width: 14.0),
-          //     Text('OR'),
-          //     SizedBox(width: 14.0),
-          //     Flexible(child: Divider()),
-          //   ],
-          // ),
-          // const SpaceHeight(50.0),
-          // Button.outlined(
-          //   onPressed: () {},
-          //   label: 'Login with Google',
-          //   icon: Assets.images.google.image(height: 20.0),
-          // ),
           const SpaceHeight(50.0),
           InkWell(
             onTap: () {

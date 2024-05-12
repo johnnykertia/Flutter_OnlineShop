@@ -1,20 +1,21 @@
 import 'package:flutter_online_shop/data/models/responses/auth_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthLocalDataSource {
+class AuthLocalDatasource {
   Future<void> saveAuthData(AuthResponseModel authResponseModel) async {
-    //simpan data ke local storage
+    //save auth data to local storage
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('auth_data', authResponseModel.toJson());
   }
 
   Future<void> removeAuthData() async {
-    //Remove semua data di storage
+    //remove auth data from local storage
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('auth_data');
   }
 
   Future<AuthResponseModel?> getAuthData() async {
+    //get auth data from local storage
     final prefs = await SharedPreferences.getInstance();
     final authData = prefs.getString('auth_data');
     if (authData != null) {
@@ -25,7 +26,7 @@ class AuthLocalDataSource {
   }
 
   Future<bool> isAuth() async {
-    //cek apakah sudah login atau belum
+    //check if user is authenticated
     final prefs = await SharedPreferences.getInstance();
     final authData = prefs.getString('auth_data');
     if (authData != null) {

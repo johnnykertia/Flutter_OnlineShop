@@ -149,15 +149,13 @@ class CartPage extends StatelessWidget {
                   });
               return Button.filled(
                   onPressed: () async {
-                    final isAuth = await AuthLocalDataSource().isAuth();
+                    final isAuth = await AuthLocalDatasource().isAuth();
                     if (!isAuth) {
-                      context.goNamed(RouteConstants.login);
+                      context.pushNamed(RouteConstants.login);
                     } else {
-                      context.goNamed(
-                        RouteConstants.orderDetail,
-                        // pathParameters:
-                        //     PathParameters(rootTab: RootTab.order).toMap()
-                      );
+                      context.goNamed(RouteConstants.orderDetail,
+                          pathParameters:
+                              PathParameters(rootTab: RootTab.order).toMap());
                     }
                   },
                   label: 'Checkout {$totalQty}');
