@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_online_shop/data/datasources/auth_local_datasource.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/components/buttons.dart';
@@ -147,10 +148,17 @@ class CartPage extends StatelessWidget {
                             previousValue + element.quantity);
                   });
               return Button.filled(
-                  onPressed: () {
-                    context.goNamed(RouteConstants.address,
-                        pathParameters:
-                            PathParameters(rootTab: RootTab.order).toMap());
+                  onPressed: () async {
+                    final isAuth = await AuthLocalDataSource().isAuth();
+                    if (!isAuth) {
+                      context.goNamed(RouteConstants.login);
+                    } else {
+                      context.goNamed(
+                        RouteConstants.orderDetail,
+                        // pathParameters:
+                        //     PathParameters(rootTab: RootTab.order).toMap()
+                      );
+                    }
                   },
                   label: 'Checkout {$totalQty}');
               // return Button.filled(

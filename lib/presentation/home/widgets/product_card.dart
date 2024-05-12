@@ -6,7 +6,6 @@ import 'package:flutter_online_shop/presentation/home/bloc/checkout/checkout_blo
 import 'package:go_router/go_router.dart';
 
 import '../../../core/components/spaces.dart';
-// import '../../../core/constants/variables.dart';
 import '../../../core/core.dart';
 import '../../../core/router/app_router.dart';
 import '../models/product_model.dart';
